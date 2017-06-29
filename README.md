@@ -4,7 +4,7 @@ MR-PRESSO (**Mendelian Randomization Pleiotropy RESidual Sum and Outlier**) is a
 MR-PRESSO has three components, including:
 1. detection of pleiotropy (*MR-PRESSO global test*)
 2. correction of pleiotropy via outlier removal (*MR-PRESSO outlier test*)
-3. testing of significant distortion in the causal estimates before and after MR-PRESSO correction (*MR-PRESSO distortion test*).
+3. testing of significant distortion in the causal estimates before and after outlier removal (*MR-PRESSO distortion test*).
 
 ### 1. Install and load MR-PRESSO
 To install the latest development builds directly from GitHub, run this instead:
