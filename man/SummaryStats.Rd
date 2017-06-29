@@ -1,0 +1,35 @@
+\name{SummaryStats}
+\alias{SummaryStats}
+\docType{data}
+\title{
+Simulated toy dataset
+}
+\description{
+'SummaryStats' is a simulated toy dataset of summary statistics for Y the outcome and E1 and E2 two exposures. It is composed of 45 single ncleotide variants (SNVs) associated with E1 and 5 additional variants associated with E1 and E2 which are therefore submitted to pleiotropy. Test the function mr_presso() on this toy dataset.
+}
+\usage{data("SummaryStats")}
+\format{
+  A data frame with 50 observations on the following 9 variables.
+  \describe{
+    \item{\code{E1_effect}}{a numeric vector}
+    \item{\code{E1_se}}{a numeric vector}
+    \item{\code{E1_pval}}{a numeric vector}
+    \item{\code{E2_effect}}{a numeric vector}
+    \item{\code{E2_se}}{a numeric vector}
+    \item{\code{E2_pval}}{a numeric vector}
+    \item{\code{Y_effect}}{a numeric vector}
+    \item{\code{Y_se}}{a numeric vector}
+    \item{\code{Y_pval}}{a numeric vector}
+  }
+}
+% \details{}
+% \source{}
+
+\references{
+    Widespread pleiotropy confounds causal relationships between complex traits and diseases inferred from Mendelian randomization. Marie Verbanck*, Chia-Yen Chen*, Benjamin Neale, Ron Do.
+}
+\examples{
+data(SummaryStats)
+mr_presso(BetaOutcome = "Y_effect", BetaExposure = "E1_effect", SdOutcome = "Y_se", SdExposure = "E1_se", OUTLIERtest = TRUE, BIAStest = TRUE, data = SummaryStats, NbDistribution = 100,  SignifThreshold = 0.05)
+}
+\keyword{datasets}
