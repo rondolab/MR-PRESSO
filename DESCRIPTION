@@ -1,0 +1,11 @@
+Package: MRPRESSO
+Type: Package
+Title: Performs the Mendelian Randomization Pleiotropy RESidual Sum and Outlier (MR-PRESSO) test.
+Version: 1.0
+Date: 2017-06-01
+Author: Marie Verbanck
+Maintainer: Marie Verbanck <marie.verbanck@mssm.edu>
+Description: MR-PRESSO (Mendelian Randomization Pleiotropy RESidual Sum and Outlier) is a unified framework that allows for the evaluation of pleiotropy in a standard MR model.
+License: GPL-3
+NeedsCompilation: no
+Packaged: 2017-06-01 20:24:11 UTC; verbam01
