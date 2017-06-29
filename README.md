@@ -23,5 +23,5 @@ library(MRPRESSO)
 data(SummaryStats)
 
 # Run MR-PRESSO global framework
-mr_presso(BetaOutcome = "Y_effect", BetaExposure = "E1_effect", SdOutcome = "Y_se", SdExposure = "E1_se", OUTLIERtest = TRUE, BIAStest = TRUE, data = SummaryStats, NbDistribution = 100,  SignifThreshold = 0.05)
+mr_presso(BetaOutcome = "Y_effect", BetaExposure = "E1_effect", SdOutcome = "Y_se", SdExposure = "E1_se", OUTLIERtest = TRUE, DISTORTIONtest = TRUE, data = SummaryStats, NbDistribution = 1000,  SignifThreshold = 0.05)
 ```
