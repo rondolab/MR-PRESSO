@@ -1,7 +1,7 @@
 # MR-PRESSO
-MR-PRESSO (**Mendelian Randomization Pleiotropy RESidual Sum and Outlier**) is a R package to use a unified framework that allows for the evaluation of pleiotropy in a standard Mendelian Randomization model.
+MR-PRESSO (**Mendelian Randomization Pleiotropy RESidual Sum and Outlier**) is a framework that allows for the evaluation of pleiotropy in multi-instrument Mendelian Randomization utilizing genome-wide summary association statistics.
 
-The method extends on previous approaches that utilize the general model of multi-instrument MR on summary statistics. MR-PRESSO has three components, including:
+MR-PRESSO has three components, including:
 1. detection of pleiotropy (*MR-PRESSO global test*)
 2. correction of pleiotropy via outlier removal (*MR-PRESSO outlier test*)
 3. testing of significant distortion in the causal estimates before and after MR-PRESSO correction (*MR-PRESSO distortion test*).
