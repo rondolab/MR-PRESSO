@@ -5,7 +5,7 @@ Version: 1.0
 Date: 2017-06-29
 Author: Marie Verbanck
 Maintainer: Marie Verbanck <marie.verbanck@mssm.edu>
-Description: MR-PRESSO (Mendelian Randomization Pleiotropy RESidual Sum and Outlier) is a unified framework that allows for the evaluation of pleiotropy in a standard MR model.
+Description: MR-PRESSO (Mendelian Randomization Pleiotropy RESidual Sum and Outlier) is a framework that allows for the evaluation of pleiotropy in multi-instrument Mendelian Randomization utilizing genome-wide summary association statistics.
 License: GPL-3
 NeedsCompilation: no
 Packaged: 2017-29-01 12:14:11 UTC; verbam01
