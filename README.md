@@ -6,6 +6,11 @@ MR-PRESSO has three components, including:
 2. correction of pleiotropy via outlier removal (*MR-PRESSO outlier test*)
 3. testing of significant distortion in the causal estimates before and after outlier removal (*MR-PRESSO distortion test*).
 
+### Reference
+
+Widespread pleiotropy confounds causal relationships between complex traits and diseases inferred from Mendelian randomization. Marie Verbanck, Chia-Yen Chen, Benjamin Neale, Ron Do. bioRxiv 2017. DOI: 10.1101/157552.
+<http://www.biorxiv.org/content/early/2017/06/30/157552>
+
 ### 1. Install and load MR-PRESSO
 To install the latest development builds directly from GitHub, run this instead:
 ```r
