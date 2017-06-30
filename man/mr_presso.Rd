@@ -51,7 +51,7 @@
     \item{Distortion Test}{Results of the MR-PRESSO distortion test. List of the 'Outliers Indices' identified as outliers and excluded to calculate the 'Distortion Coefficient' (in percent) and its 'Pvalue'.}
 }
 \references{
-    Widespread pleiotropy confounds causal relationships between complex traits and diseases inferred from Mendelian randomization. Marie Verbanck*, Chia-Yen Chen*, Benjamin Neale, Ron Do.
+    Widespread pleiotropy confounds causal relationships between complex traits and diseases inferred from Mendelian randomization. Marie Verbanck*, Chia-Yen Chen*, Benjamin Neale, Ron Do. bioRxiv 2017. DOI: 10.1101/157552.
 }
 \author{
     Marie Verbanck

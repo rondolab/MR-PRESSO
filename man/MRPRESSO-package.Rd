@@ -20,7 +20,7 @@ The DESCRIPTION file:
 Maintainer: \packageMaintainer{MRPRESSO}
 }
 \references{
-    Widespread pleiotropy confounds causal relationships between complex traits and diseases inferred from Mendelian randomization. Marie Verbanck*, Chia-Yen Chen*, Benjamin Neale, Ron Do.
+    Widespread pleiotropy confounds causal relationships between complex traits and diseases inferred from Mendelian randomization. Marie Verbanck*, Chia-Yen Chen*, Benjamin Neale, Ron Do. bioRxiv 2017. DOI: 10.1101/157552.
 }
 % \keyword{ package }
 % \seealso{}
