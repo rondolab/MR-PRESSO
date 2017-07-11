@@ -100,6 +100,7 @@ BiasExp <- (mod_all$coefficients[BetaExposure] - BiasExp) / BiasExp
 BiasTest <- list(`Outliers Indices` = refOutlier, `Distortion Coefficient` = 100*BiasObs, Pvalue = sum(abs(BiasExp) > abs(BiasObs))/NbDistribution)
 } else{
 BiasTest <- "No significant outliers"
+DISTORTIONtest <- FALSE
 }
 }
 
@@ -107,7 +108,7 @@ BiasTest <- "No significant outliers"
 GlobalTest$Pvalue <- ifelse(GlobalTest$Pvalue == 0, paste0("<", 1/NbDistribution), GlobalTest$Pvalue)
 if(OUTLIERtest){
 OutlierTest$Pvalue <- replace(OutlierTest$Pvalue, OutlierTest$Pvalue == 0, paste0("<", nrow(data)/NbDistribution))
-if(DISTORTIONtest & BiasTest != "No significant outliers"){
+if(DISTORTIONtest){
 BiasTest$Pvalue <- ifelse(BiasTest$Pvalue == 0, paste0("<", 1/NbDistribution), BiasTest$Pvalue)
 res <- list(`Global Test` = GlobalTest, `Outlier Test` = OutlierTest, `Distortion Test` = BiasTest)
 } else {
