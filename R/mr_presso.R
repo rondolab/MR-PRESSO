@@ -1,5 +1,5 @@
 mr_presso <-
-function(BetaOutcome, BetaExposure, SdOutcome, SdExposure, data, OUTLIERtest = FALSE, DISTORTIONtest = FALSE, SignifThreshold = 0.05, NbDistribution = 1000, seed = NULL){
+function(BetaOutcome, BetaExposure, SdOutcome, SdExposure, data, OUTLIERtest = FALSE, BIAStest = FALSE, SignifThreshold = 0.05, NbDistribution = 1000, seed = NULL){
 
 if(!is.null(seed))
 set.seed(seed)
@@ -79,8 +79,8 @@ OutlierTest$Pvalue <- apply(cbind(OutlierTest$Pvalue*nrow(data), 1), 1, min) # B
 OUTLIERtest <- FALSE
 }
 
-# 4- Computing the test of the distortion of the causal estimate
-if(DISTORTIONtest & OUTLIERtest){
+# 4- Computing the test on the bias of the causal estimate
+if(BIAStest & OUTLIERtest){
 getRandomBias <- function(BetaOutcome, BetaExposure, SdOutcome, SdExposure, data, refOutlier){
 indices <- c(refOutlier, replicate(nrow(data)-length(refOutlier), sample(setdiff(1:nrow(data), refOutlier))[1]))
 mod_random <- lm(as.formula(paste0(BetaOutcome, " ~ -1 + ", BetaExposure)), weights = Weights, data = data[indices[1:(length(indices) - length(refOutlier))], ])
@@ -94,10 +94,10 @@ BiasExp <- do.call("rbind", BiasExp)
 
 mod_all <- lm(as.formula(paste0(BetaOutcome, " ~ -1 + ", BetaExposure)), weights = Weights, data = data)
 mod_noOutliers <- lm(as.formula(paste0(BetaOutcome, " ~ -1 + ", BetaExposure)), weights = Weights, data = data[refOutlier, ])
-BiasObs <- (mod_all$coefficients[BetaExposure] - mod_noOutliers$coefficients[BetaExposure]) / mod_noOutliers$coefficients[BetaExposure]
-BiasExp <- (mod_all$coefficients[BetaExposure] - BiasExp) / BiasExp
+BiasObs <- abs(mod_noOutliers$coefficients[BetaExposure] - mod_all$coefficients[BetaExposure]) / mod_noOutliers$coefficients[BetaExposure]
+BiasExp <- abs(BiasExp - mod_all$coefficients[BetaExposure]) / BiasExp
 
-BiasTest <- list(`Outliers Indices` = refOutlier, `Distortion Coefficient` = 100*BiasObs, Pvalue = sum(abs(BiasExp) > abs(BiasObs))/NbDistribution)
+BiasTest <- list(`Outliers Indices` = refOutlier, `Distortion Coefficient` = mod_all$coefficients[BetaExposure] / mod_noOutliers$coefficients[BetaExposure], Pvalue = sum(BiasExp > BiasObs)/NbDistribution)
 } else{
 BiasTest <- "No significant outliers"
 }
@@ -107,16 +107,14 @@ BiasTest <- "No significant outliers"
 GlobalTest$Pvalue <- ifelse(GlobalTest$Pvalue == 0, paste0("<", 1/NbDistribution), GlobalTest$Pvalue)
 if(OUTLIERtest){
 OutlierTest$Pvalue <- replace(OutlierTest$Pvalue, OutlierTest$Pvalue == 0, paste0("<", nrow(data)/NbDistribution))
-if(DISTORTIONtest){
+if(BIAStest & BiasTest != "No significant outliers"){
 BiasTest$Pvalue <- ifelse(BiasTest$Pvalue == 0, paste0("<", 1/NbDistribution), BiasTest$Pvalue)
-res <- list(`Global Test` = GlobalTest, `Outlier Test` = OutlierTest, `Distortion Test` = BiasTest)
+res <- list(`Global Test` = GlobalTest, `Outlier Test` = OutlierTest, `Bias Test` = BiasTest)
 } else {
 res <- list(`Global Test` = GlobalTest, `Outlier Test` = OutlierTest)
 }
 } else {
 res <- GlobalTest
 }
-if(nrow(data)/NbDistribution > SignifThreshold)
-warning(paste0("Outlier test unstable. The significance threshold of ", SignifThreshold, " for the outlier test is not achievable with only ", NbDistribution, " to compute the null distribution. The current precision is <", nrow(data)/NbDistribution, ". Increase NbDistribution."))
 return(res)
 }
