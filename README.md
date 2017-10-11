@@ -27,6 +27,6 @@ library(MRPRESSO)
 # Load a simulated toy dataset
 data(SummaryStats)
 
-# Run MR-PRESSO global framework
+# Run MR-PRESSO global method
 mr_presso(BetaOutcome = "Y_effect", BetaExposure = "E1_effect", SdOutcome = "Y_se", SdExposure = "E1_se", OUTLIERtest = TRUE, DISTORTIONtest = TRUE, data = SummaryStats, NbDistribution = 1000,  SignifThreshold = 0.05)
 ```
