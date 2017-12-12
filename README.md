@@ -2,13 +2,13 @@
 MR-PRESSO (**Mendelian Randomization Pleiotropy RESidual Sum and Outlier**) is a method that allows for the evaluation of horizontal pleiotropy in multi-instrument Mendelian Randomization utilizing genome-wide summary association statistics.
 
 MR-PRESSO has three components, including:
-1. detection of pleiotropy (*MR-PRESSO global test*)
-2. correction of pleiotropy via outlier removal (*MR-PRESSO outlier test*)
+1. detection of horizontal pleiotropy (*MR-PRESSO global test*)
+2. correction of horizontal pleiotropy via outlier removal (*MR-PRESSO outlier test*)
 3. testing of significant distortion in the causal estimates before and after outlier removal (*MR-PRESSO distortion test*).
 
 ### Reference
 
-Widespread pleiotropy confounds causal relationships between complex traits and diseases inferred from Mendelian randomization. Marie Verbanck, Chia-Yen Chen, Benjamin Neale, Ron Do. bioRxiv 2017. DOI: 10.1101/157552.
+Widespread horizontal pleiotropy confounds causal relationships between complex traits and diseases inferred from Mendelian randomization. Marie Verbanck, Chia-Yen Chen, Benjamin Neale, Ron Do. bioRxiv 2017. DOI: 10.1101/157552.
 <http://www.biorxiv.org/content/early/2017/06/30/157552>
 
 ### 1. Install and load MR-PRESSO
