@@ -56,7 +56,7 @@ RSSobs <- getRSS_LOO(BetaOutcome = BetaOutcome, BetaExposure = BetaExposure, dat
 # 2- Computing the distribtion of expected residual sum of squares (RSS)
 randomData <- replicate(NbDistribution, getRandomData(BetaOutcome = BetaOutcome, BetaExposure = BetaExposure, SdOutcome = SdOutcome, SdExposure = SdExposure, data = data), simplify = FALSE)
 RSSexp <- sapply(randomData, getRSS_LOO, BetaOutcome = BetaOutcome, BetaExposure = BetaExposure, returnIV = OUTLIERtest)
-GlobalTest <- list(RSSobs = RSSobs[[1]], Pvalue = sum(RSSexp[[1]] > RSSobs[[1]])/NbDistribution)
+GlobalTest <- list(RSSobs = RSSobs[[1]], Pvalue = sum(RSSexp[1, ] > RSSobs[[1]])/NbDistribution)
 
 # 3- Computing the single IV outlier test
 if(GlobalTest$Pvalue < SignifThreshold & OUTLIERtest){
