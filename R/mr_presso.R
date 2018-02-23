@@ -93,9 +93,9 @@ BiasExp <- replicate(NbDistribution, getRandomBias(BetaOutcome = BetaOutcome, Be
 BiasExp <- do.call("rbind", BiasExp)
 
 mod_all <- lm(as.formula(paste0(BetaOutcome, " ~ -1 + ", BetaExposure)), weights = Weights, data = data)
-mod_noOutliers <- lm(as.formula(paste0(BetaOutcome, " ~ -1 + ", BetaExposure)), weights = Weights, data = data[refOutlier, ])
-BiasObs <- (mod_all$coefficients[BetaExposure] - mod_noOutliers$coefficients[BetaExposure]) / mod_noOutliers$coefficients[BetaExposure]
-BiasExp <- (mod_all$coefficients[BetaExposure] - BiasExp) / BiasExp
+mod_noOutliers <- lm(as.formula(paste0(BetaOutcome, " ~ -1 + ", BetaExposure)), weights = Weights, data = data[-refOutlier, ])
+BiasObs <- (mod_all$coefficients[BetaExposure] - mod_noOutliers$coefficients[BetaExposure]) / abs(mod_noOutliers$coefficients[BetaExposure])
+BiasExp <- (mod_all$coefficients[BetaExposure] - BiasExp) / abs(BiasExp)
 
 BiasTest <- list(`Outliers Indices` = refOutlier, `Distortion Coefficient` = 100*BiasObs, Pvalue = sum(abs(BiasExp) > abs(BiasObs))/NbDistribution)
 } else{
