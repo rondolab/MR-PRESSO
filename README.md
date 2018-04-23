@@ -8,8 +8,8 @@ MR-PRESSO has three components, including:
 
 ### Reference
 
-Widespread horizontal pleiotropy confounds causal relationships between complex traits and diseases inferred from Mendelian randomization. Marie Verbanck, Chia-Yen Chen, Benjamin Neale, Ron Do. bioRxiv 2017. DOI: 10.1101/157552.
-<http://www.biorxiv.org/content/early/2017/06/30/157552>
+Widespread horizontal pleiotropy confounds causal relationships between complex traits and diseases inferred from Mendelian randomization. Marie Verbanck, Chia-Yen Chen, Benjamin Neale, Ron Do. Nature Genetics 2018. DOI: 10.1038/s41588-018-0099-7.
+<https://www.nature.com/articles/s41588-018-0099-7>
 
 ### 1. Install and load MR-PRESSO
 To install the latest development builds directly from GitHub, run this instead:
