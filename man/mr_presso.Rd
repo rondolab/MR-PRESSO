@@ -46,12 +46,13 @@
 % \details{}
 
 \value{
+    \item{Main MR results}{Results of the MR analysis providing the causal estimate, sd and P-value of the raw and outlier-corrected MR analysis}
     \item{Global Test}{Results of the MR-PRESSO global test. List of the observed residual sum of squares 'RSSobs' and empirical P-value 'Pvalue'}
     \item{Outlier Test }{Results of the MR-PRESSO outlier test. Table of observed residual sum of squares 'RSSobs' and 'Pvalue' per SNV}
     \item{Distortion Test}{Results of the MR-PRESSO distortion test. List of the 'Outliers Indices' identified as outliers and excluded to calculate the 'Distortion Coefficient' (in percent) and its 'Pvalue'.}
 }
 \references{
-    Widespread pleiotropy confounds causal relationships between complex traits and diseases inferred from Mendelian randomization. Marie Verbanck*, Chia-Yen Chen*, Benjamin Neale, Ron Do. bioRxiv 2017. DOI: 10.1101/157552.
+    Detection of widespread horizontal pleiotropy in causal relationships inferred from Mendelian randomization between complex traits and diseases. Marie Verbanck, Chia-Yen Chen, Benjamin Neale, Ron Do. Nature Genetics 2018. DOI: 10.1038/s41588-018-0099-7. https://www.nature.com/articles/s41588-018-0099-7
 }
 \author{
     Marie Verbanck

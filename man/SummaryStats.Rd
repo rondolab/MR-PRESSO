@@ -26,7 +26,7 @@ Simulated toy dataset
 % \source{}
 
 \references{
-    Widespread pleiotropy confounds causal relationships between complex traits and diseases inferred from Mendelian randomization. Marie Verbanck*, Chia-Yen Chen*, Benjamin Neale, Ron Do. bioRxiv 2017. DOI: 10.1101/157552.
+    Detection of widespread horizontal pleiotropy in causal relationships inferred from Mendelian randomization between complex traits and diseases. Marie Verbanck, Chia-Yen Chen, Benjamin Neale, Ron Do. Nature Genetics 2018. DOI: 10.1038/s41588-018-0099-7. https://www.nature.com/articles/s41588-018-0099-7
 }
 \examples{
 data(SummaryStats)
