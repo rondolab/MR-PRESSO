@@ -121,7 +121,7 @@ mr_presso <- function(BetaOutcome, BetaExposure, SdOutcome, SdExposure, data, OU
 		if(nrow(data)/NbDistribution > SignifThreshold)
 		warning(paste0("Outlier test unstable. The significance threshold of ", SignifThreshold, " for the outlier test is not achievable with only ", NbDistribution, " to compute the null distribution. The current precision is <", nrow(data)/NbDistribution, ". Increase NbDistribution."))
 	} else {
-		res <- GlobalTest
+		res <- list(`Global Test` = GlobalTest)
 	}
 
 	OriginalMR <- cbind.data.frame(BetaExposure, "Raw", summary(mod_all)$coefficients)
