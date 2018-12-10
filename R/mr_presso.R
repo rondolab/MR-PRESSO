@@ -8,6 +8,9 @@ mr_presso <- function(BetaOutcome, BetaExposure, SdOutcome, SdExposure, data, OU
 
 	if(length(BetaExposure) != length(SdExposure))
 		stop("BetaExposure and SdExposure must have the same number of elements")
+		
+	if(class(data)[1] != "data.frame")
+		stop("data must be an object of class data.frame, try to rerun MR-PRESSO by conversing data to a data.frame \'data = as.data.frame(data)\'")
 
 	# Functions
 	"%^%" <- function(x, n) with(eigen(x), vectors %*% (values^n * t(vectors)))
