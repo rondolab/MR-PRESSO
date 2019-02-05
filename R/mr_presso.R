@@ -8,7 +8,7 @@ mr_presso <- function(BetaOutcome, BetaExposure, SdOutcome, SdExposure, data, OU
 
 	if(length(BetaExposure) != length(SdExposure))
 		stop("BetaExposure and SdExposure must have the same number of elements")
-		
+
 	if(class(data)[1] != "data.frame")
 		stop("data must be an object of class data.frame, try to rerun MR-PRESSO by conversing data to a data.frame \'data = as.data.frame(data)\'")
 
@@ -96,13 +96,17 @@ mr_presso <- function(BetaOutcome, BetaExposure, SdOutcome, SdExposure, data, OU
 		refOutlier <- which(OutlierTest$Pvalue <= SignifThreshold)
 
 		if(length(refOutlier) > 0){
-			BiasExp <- replicate(NbDistribution, getRandomBias(BetaOutcome = BetaOutcome, BetaExposure = BetaExposure, data = data, refOutlier = refOutlier), simplify = FALSE)
-			BiasExp <- do.call("rbind", BiasExp)
+			if(length(refOutlier) < nrow(data)){
+				BiasExp <- replicate(NbDistribution, getRandomBias(BetaOutcome = BetaOutcome, BetaExposure = BetaExposure, data = data, refOutlier = refOutlier), simplify = FALSE)
+				BiasExp <- do.call("rbind", BiasExp)
 
-			mod_noOutliers <- lm(as.formula(paste0(BetaOutcome, " ~ -1 + ", BetaExposure)), weights = Weights, data = data[-refOutlier, ])
-			BiasObs <- (mod_all$coefficients[BetaExposure] - mod_noOutliers$coefficients[BetaExposure]) / abs(mod_noOutliers$coefficients[BetaExposure])
-			BiasExp <- (mod_all$coefficients[BetaExposure] - BiasExp) / abs(BiasExp)
-			BiasTest <- list(`Outliers Indices` = refOutlier, `Distortion Coefficient` = 100*BiasObs, Pvalue = sum(abs(BiasExp) > abs(BiasObs))/NbDistribution)
+				mod_noOutliers <- lm(as.formula(paste0(BetaOutcome, " ~ -1 + ", BetaExposure)), weights = Weights, data = data[-refOutlier, ])
+				BiasObs <- (mod_all$coefficients[BetaExposure] - mod_noOutliers$coefficients[BetaExposure]) / abs(mod_noOutliers$coefficients[BetaExposure])
+				BiasExp <- (mod_all$coefficients[BetaExposure] - BiasExp) / abs(BiasExp)
+				BiasTest <- list(`Outliers Indices` = refOutlier, `Distortion Coefficient` = 100*BiasObs, Pvalue = sum(abs(BiasExp) > abs(BiasObs))/NbDistribution)
+			} else {
+				BiasTest <- list(`Outliers Indices` = "All SNPs considered as outliers", `Distortion Coefficient` = NA, Pvalue = NA)
+			}
 		} else{
 			BiasTest <- list(`Outliers Indices` = "No significant outliers", `Distortion Coefficient` = NA, Pvalue = NA)
 		}
