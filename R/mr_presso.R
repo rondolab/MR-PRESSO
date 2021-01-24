@@ -35,8 +35,8 @@ mr_presso <- function(BetaOutcome, BetaExposure, SdOutcome, SdExposure, data, OU
 
 
 	getRandomData <- function(BetaOutcome, BetaExposure, SdOutcome, SdExposure, data){
-		mod_IVW <- lm(as.formula(paste0(BetaOutcome, " ~ -1 + ", BetaExposure)), weights = Weights, data = data)
-		dataRandom <- cbind(eval(parse(text = paste0("cbind(", paste0("rnorm(nrow(data), data[, \'", BetaExposure, "\'], data[ ,\'", SdExposure, "\'])", collapse = ", "), ", rnorm(nrow(data), fitted(mod_IVW), data[ ,\'", SdOutcome,"\']))"))), data$Weights)
+		mod_IVW <- lapply(1:nrow(data), function(i) lm(as.formula(paste0(BetaOutcome, " ~ -1 + ", BetaExposure)), weights = Weights, data = data[-i, ]))
+		dataRandom <- cbind(eval(parse(text = paste0("cbind(", paste0("rnorm(nrow(data), data[, \'", BetaExposure, "\'], data[ ,\'", SdExposure, "\'])", collapse = ", "), ", sapply(1:nrow(data), function(i) rnorm(1, fitted(mod_IVW[[i]]), data[i ,\'", SdOutcome,"\'])))"))), data$Weights)
 		colnames(dataRandom) <- c(BetaExposure, BetaOutcome, "Weights")
 		return(dataRandom)
 	}
