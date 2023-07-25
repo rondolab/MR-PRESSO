@@ -35,7 +35,7 @@ mr_presso <- function(BetaOutcome, BetaExposure, SdOutcome, SdExposure, data, OU
 
 
 	getRandomData <- function(BetaOutcome, BetaExposure, SdOutcome, SdExposure, data){
-		mod_IVW <- lapply(1:nrow(data), function(i) lm(as.formula(paste0(BetaOutcome, " ~ -1 + ", BetaExposure)), weights = Weights, data = data[-i, ]))
+		mod_IVW <- lapply(1:nrow(data), function(i) lm(as.formula(paste0(BetaOutcome, " ~ -1 + ", paste(BetaExposure, collapse=" + "))), weights = Weights, data = data[-i, ]))
 		dataRandom <- cbind(eval(parse(text = paste0("cbind(", paste0("rnorm(nrow(data), data[, \'", BetaExposure, "\'], data[ ,\'", SdExposure, "\'])", collapse = ", "), ", sapply(1:nrow(data), function(i) rnorm(1, predict(mod_IVW[[i]], newdata = data[i, ]), data[i ,\'", SdOutcome,"\'])))"))), data$Weights)
 		colnames(dataRandom) <- c(BetaExposure, BetaOutcome, "Weights")
 		return(dataRandom)
@@ -100,7 +100,7 @@ mr_presso <- function(BetaOutcome, BetaExposure, SdOutcome, SdExposure, data, OU
 				BiasExp <- replicate(NbDistribution, getRandomBias(BetaOutcome = BetaOutcome, BetaExposure = BetaExposure, data = data, refOutlier = refOutlier), simplify = FALSE)
 				BiasExp <- do.call("rbind", BiasExp)
 
-				mod_noOutliers <- lm(as.formula(paste0(BetaOutcome, " ~ -1 + ", BetaExposure)), weights = Weights, data = data[-refOutlier, ])
+				mod_noOutliers <- lm(as.formula(paste0(BetaOutcome, " ~ -1 + ", paste(BetaExposure, collapse=" + "))), weights = Weights, data = data[-refOutlier, ])
 				BiasObs <- (mod_all$coefficients[BetaExposure] - mod_noOutliers$coefficients[BetaExposure]) / abs(mod_noOutliers$coefficients[BetaExposure])
 				BiasExp <- (mod_all$coefficients[BetaExposure] - BiasExp) / abs(BiasExp)
 				BiasTest <- list(`Outliers Indices` = refOutlier, `Distortion Coefficient` = 100*BiasObs, Pvalue = sum(abs(BiasExp) > abs(BiasObs))/NbDistribution)
@@ -130,10 +130,12 @@ mr_presso <- function(BetaOutcome, BetaExposure, SdOutcome, SdExposure, data, OU
 
 	OriginalMR <- cbind.data.frame(BetaExposure, "Raw", summary(mod_all)$coefficients)
 	colnames(OriginalMR) <- c("Exposure", "MR Analysis", "Causal Estimate", "Sd", "T-stat", "P-value")
-	if(exists("mod_noOutliers"))
-		OutlierCorrectedMR <- cbind.data.frame(BetaExposure, "Outlier-corrected", summary(mod_noOutliers)$coefficients)
-	else
-		OutlierCorrectedMR <- cbind.data.frame(BetaExposure, "Outlier-corrected", t(rep(NA, 4)))
+	if(exists("mod_noOutliers")){
+		OutlierCorrectedMR <- cbind.data.frame(BetaExposure, "Outlier-corrected", summary(mod_noOutliers)$coefficients, row.names = NULL)
+	} else {
+	  warning("No outlier were identified, therefore the results for the outlier-corrected MR are set to NA")
+	  OutlierCorrectedMR <- cbind.data.frame(BetaExposure, "Outlier-corrected", t(rep(NA, 4)), row.names = NULL)
+	}
 	colnames(OutlierCorrectedMR) <- colnames(OriginalMR)
 	MR <- rbind.data.frame(OriginalMR, OutlierCorrectedMR)
 	row.names(MR) <- NULL
